@@ -132,7 +132,7 @@ public class TournamentDbAdapter {
 	public List<Question> getAllQuestions(int subjectId){
 	
 
-	return	new CursorReader<Question>(fetchAllQuestions(0)) {
+	return	new CursorReader<Question>(fetchAllQuestions(subjectId)) {
 
 			@Override
 			protected Question readRecord() {
@@ -162,7 +162,7 @@ public class TournamentDbAdapter {
 
 	private Cursor fetchAllQuestions(int subjectId){
 		
-		return mDb.query("questions", new String[]{"_id","question_text","answer_choice","choice_a","choice_b","choice_c","choice_d","question_level","subject_Id"}, null, null, null,null, null);
+		return mDb.query("questions", new String[]{"_id","question_text","answer_choice","choice_a","choice_b","choice_c","choice_d","question_level","subject_Id"}, "subject_id="+subjectId, null, null,null, null);
 	}
 	public long createQuestion(Question question){
 		

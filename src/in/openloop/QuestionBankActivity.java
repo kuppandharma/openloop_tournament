@@ -49,15 +49,36 @@ public class QuestionBankActivity extends Activity {
 	
 	private void createQuestions(){
 		
-		Question question = new Question("What is 1 + 1", 3, new String[]{"1","3","4","2"}, 0, 0);
+		Question question = new Question("What is 1 + 1", 3, new String[]{"1","3","4","2"}, 0, 2);
     	mDbAdapter.createQuestion(question);
-    	question = new Question("Which number is greater than 0", 1, new String[]{"-1","3","-4","-2"}, 0, 0);
+    	question = new Question("Which number is greater than 0", 1, new String[]{"-1","3","-4","-2"}, 0, 2);
     	mDbAdapter.createQuestion(question);
-    	question = new Question("What is 1 + 4", 3, new String[]{"1","3","4","5"}, 0, 0);
+    	question = new Question("What is 1 + 4", 3, new String[]{"1","3","4","5"}, 0, 2);
     	mDbAdapter.createQuestion(question);
-    	question = new Question("What is 1 + 0 ", 3, new String[]{"1","3","4","1"}, 0, 0);
+    	question = new Question("What is 1 + 0 ", 3, new String[]{"1","3","4","1"}, 0, 2);
     	mDbAdapter.createQuestion(question);
 		
+	
+    	question = new Question("What letter comes after 'D'", 3, new String[]{"B","A","C","E"},0,1 );
+    	mDbAdapter.createQuestion(question);
+    	question = new Question("Which letter comes first in alphabatical order", 1, new String[]{"B","A","C","D"}, 0, 1);
+    	mDbAdapter.createQuestion(question);
+    	question = new Question("What is the plural form for tooth", 1, new String[]{"tooths","teeth","teeths","tooth"}, 0, 1);
+    	mDbAdapter.createQuestion(question);
+    	question = new Question("What is the plural form for foot", 2, new String[]{"foots","feets","feet","foot"}, 0, 1);
+    	mDbAdapter.createQuestion(question);
+	
+    	
+    	question = new Question("What is H2O", 1, new String[]{"milk","water","gas","salt"}, 0, 3);
+    	mDbAdapter.createQuestion(question);
+    	question = new Question("What is common salt", 1, new String[]{"H2O","NaCl","HCL","O2"}, 0, 3);
+    	mDbAdapter.createQuestion(question);
+    	question = new Question("What is the boiling point of water", 3, new String[]{"1C","3C","4C","100C"}, 0, 3);
+    	mDbAdapter.createQuestion(question);
+    	question = new Question("What is the mass of an electron ", 3, new String[]{"1","3","4","1"}, 0, 3);
+    	mDbAdapter.createQuestion(question);
+	
+	
 	}
 
 }

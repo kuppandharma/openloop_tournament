@@ -1,12 +1,15 @@
 package in.openloop;
 import in.openloop.db.TournamentDbAdapter;
+import in.openloop.db.model.Answer;
 import in.openloop.db.model.Question;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -24,6 +27,8 @@ public class QuestionActivity  extends Activity{
 	EditText editText;
 	ListIterator<Question> mQuestionIterator;
 	private boolean mNext = true;
+	private List<Answer> answers = new ArrayList<Answer>();
+	private Question currentQuestion;
 	
 	private void displayQuestion(Question question){
 	
@@ -43,6 +48,7 @@ public class QuestionActivity  extends Activity{
 		choiceC.setText(choices[2]);
 		choiceD.setText(choices[3]);
 	
+		currentQuestion = question;
 	}
 	
 	public void onCreate(Bundle savedInstanceState){
@@ -52,7 +58,9 @@ public class QuestionActivity  extends Activity{
 		mDbAdapter = new TournamentDbAdapter(this);
 		mDbAdapter.open();
 		
-		List<Question> questions = mDbAdapter.getAllQuestions(0);
+		Intent i = getIntent();
+		int subjectId = i.getIntExtra("subject_id",0);
+		List<Question> questions = mDbAdapter.getAllQuestions(subjectId);
 		mQuestionIterator = questions.listIterator();
 		if(mQuestionIterator.hasNext()){
 			displayQuestion(mQuestionIterator.next());
@@ -66,6 +74,11 @@ public class QuestionActivity  extends Activity{
 			
 			public void onClick(View v) {
 				finish();
+				
+				 Intent i = new Intent(getApplicationContext(), ScoreCardActivity.class);
+				 i.putExtra("score", Answer.evaluateScore(answers));
+				 
+			     startActivity(i);
 			}
 		});
 	
@@ -77,13 +90,11 @@ public class QuestionActivity  extends Activity{
 			
 			public void onClick(View v) {
 				
-				RadioGroup group = (RadioGroup)findViewById(R.id.answerChoices);
-				int id = group.getCheckedRadioButtonId();
-				RadioButton radioButton = (RadioButton)findViewById(id);
+				answers.add(getAnswer(currentQuestion));
 				
 //				Toast.makeText(QuestionActivity.this,
-//						radioButton.getText(), Toast.LENGTH_SHORT).show();
-//			
+//						id, Toast.LENGTH_SHORT).show();
+			
 				if(mQuestionIterator.hasNext()){
 					if(!mNext){
 						displayQuestion(mQuestionIterator.next());
@@ -110,6 +121,25 @@ public class QuestionActivity  extends Activity{
 				}
 			}
 		});
+	}
+	
+	private Answer getAnswer(Question question){
+		Answer answer = new Answer();
+		RadioButton []choices = new RadioButton[4];
+		choices[0] = (RadioButton)findViewById(R.id.choiceA);
+		choices[1] = (RadioButton)findViewById(R.id.choiceB);
+		choices[2] = (RadioButton)findViewById(R.id.choiceC);
+		choices[3] = (RadioButton)findViewById(R.id.choiceD);
+		
+		for(int i=0;i<4; i++){
+			if(choices[i].isChecked()){;
+			answer.setUserChoice(i);
+			break;
+			}
+		}
+		answer.setAnswerChoice(question.getAnswerCode());
+		
+		return answer;
 	}
 
 }

@@ -6,6 +6,7 @@ import in.openloop.db.model.Subject;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ public class SubjectsActivity extends Activity {
 	
 	private TournamentDbAdapter mDbAdapter;
 	
+
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.subjects);
@@ -30,18 +32,29 @@ public class SubjectsActivity extends Activity {
 		List<Subject> subjects = mDbAdapter.getAllSubjects();
 		for(Subject subject: subjects) {
 			Button myButton = new Button(this);
-			myButton.setText(subject.getSubjectName());
+			myButton.setText(subject.getSubjectId() + subject.getSubjectName());
 			layout.addView(myButton);
-		
-			myButton.setOnClickListener(new OnClickListener() {
-				
+			myButton.setOnClickListener(new SubjectListener(subject){
 				public void onClick(View v) {
 					Intent  mathsQuestion = new Intent(getApplicationContext(),QuestionActivity.class);
+					mathsQuestion.putExtra("subject_id", mSubject.getSubjectId());
 					startActivity(mathsQuestion);
 				}
+				
 			});
 		
 		}
+		
+	}
+	
+	public static 	abstract class SubjectListener implements OnClickListener{
+
+		protected Subject mSubject;
+		
+		public SubjectListener(Subject subject){
+			mSubject = subject;
+		}
+		
 		
 	}
 }
