@@ -285,7 +285,35 @@ public class TournamentDbAdapter {
 			
 		}.readRecords();
 	}
-	
+
+	private Cursor fetchTournamentName(int tournamentId){
+		return mDb.query("tournament_names", new String[]{"_id","name","subject_Id"}, "_id="+tournamentId, null, null,null, null);
+
+	}
+	public Tournament getTournament(int tournamentId){
+		
+		List<Tournament> tournaments = new CursorReader<Tournament>(fetchTournamentName(tournamentId)) {
+
+			@Override
+			protected Tournament readRecord() {
+				Tournament tournament = new Tournament();
+				tournament.setName(mCursor.getString(mCursor.getColumnIndex("name")));
+				tournament.setId(mCursor.getInt(mCursor.getColumnIndex("_id")));
+				Subject subject = new Subject();
+				tournament.setSubject(subject);
+				subject.setSubjectId(mCursor.getInt(mCursor.getColumnIndex("subject_id")));
+				return tournament;
+			}
+			
+		}.readRecords();
+		
+		if(tournaments.size() > 0){
+			return tournaments.get(0);
+		}else{
+			return null;
+		}
+	}
+
 	public void createTournament(Tournament tournament){
 		ContentValues tournamentNames = new ContentValues();
 		tournamentNames.put("name", tournament.getName());
