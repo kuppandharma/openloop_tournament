@@ -1,7 +1,12 @@
 package in.openloop;
 
+import java.util.Date;
+import java.util.List;
+
 import in.openloop.db.TournamentDbAdapter;
 import in.openloop.db.model.Question;
+import in.openloop.db.model.Subject;
+import in.openloop.db.model.Tournament;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,18 +40,31 @@ public class QuestionBankActivity extends Activity {
 			
 			public void onClick(View v) {
 				createQuestions();
+				createTournaments();
 			}
 		});
 		
 		buttonFinish.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
+				mDbAdapter.close();
 				finish();
 			}
 		});
 
 	}
 	
+	private void createTournaments(){
+		for(Subject subject: mDbAdapter.getAllSubjects()){
+		
+			List<Question> questions = mDbAdapter.getAllQuestions(subject.getSubjectId());
+			Tournament tournament = new Tournament();
+			tournament.addQuestions(questions);
+			tournament.setSubject(subject);
+			tournament.setName(subject.getSubjectName() + new Date());
+			mDbAdapter.createTournament(tournament);
+		}
+	}
 	private void createQuestions(){
 		
 		Question question = new Question("What is 1 + 1", 3, new String[]{"1","3","4","2"}, 0, 2);

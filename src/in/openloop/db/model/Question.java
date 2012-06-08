@@ -2,6 +2,18 @@ package in.openloop.db.model;
 
 public class Question {
 
+	public int hashCode(){
+		return mQuestionText.hashCode();
+	}
+	
+	public boolean equals(Object obj){
+		if(obj instanceof Question){
+			Question that = (Question)obj;
+			return that.mQuestionText.equals(this.mQuestionText);
+		}
+		return false;
+	}
+	
 	public String getQuestionText() {
 		return mQuestionText;
 	}
@@ -47,6 +59,7 @@ public class Question {
 	private String[] mChoices;
 	private int mLevel;
 	private int mSubjectId;
+	private int mId;
 	
 	public Question(String mQuestionText, int answerCode, String[] choices, int level, int subjectId){
 		
@@ -55,6 +68,14 @@ public class Question {
 		this.mChoices = choices;
 		this.mLevel = level;
 		this.mSubjectId = subjectId;
+	}
+	
+	public void setId(int id){
+		mId = id;
+	}
+	
+	public int getId(){
+		return mId;
 	}
 	
 	public Question(){

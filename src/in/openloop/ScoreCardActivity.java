@@ -16,10 +16,18 @@ public class ScoreCardActivity extends Activity{
 		setContentView(R.layout.score_card);
 		
 		Button finishButton = (Button)findViewById(R.id.finishButton);
-		TextView score = (TextView)findViewById(R.id.scoreCardText);
+		TextView scoreCard = (TextView)findViewById(R.id.scoreCardText);
 		
 		Intent i = getIntent();
-		score.setText("Score!! -- "+i.getIntExtra("score", 0)+"");
+		Bundle extras = i.getExtras();
+		
+		int score = extras.getInt("score",0);
+		int total = extras.getInt("total", 10);
+		int tournamentId = extras.getInt("tournament_id",100);
+		
+		double percent = ((double)score/total)*100.0;
+		
+		scoreCard.setText("Score!! -- "+score+"/"+total+"  "+percent + tournamentId);
 		
 		finishButton.setOnClickListener(new OnClickListener() {
 			

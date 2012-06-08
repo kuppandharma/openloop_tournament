@@ -20,10 +20,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dip"/>
-    <Button android:id="@+id/btnNextScreen"
+    <Button android:id="@+id/btnLogin"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Send to Next Screen"
+            android:text="Login"
             android:layout_marginTop="15dip"/>
 
     <Button

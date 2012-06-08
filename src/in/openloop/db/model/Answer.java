@@ -1,5 +1,6 @@
 package in.openloop.db.model;
 
+import java.util.Collection;
 import java.util.List;
 
 public class Answer {
@@ -16,7 +17,7 @@ public class Answer {
 		mAnswerChoice = index;
 	}
 	
-	public static int evaluateScore(List<Answer> answers){
+	public static int evaluateScore(Collection<Answer> answers){
 		int score=0;
 		
 		for(Answer answer: answers){

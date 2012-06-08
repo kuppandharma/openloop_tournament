@@ -33,6 +33,10 @@
          <activity 
             android:name=".ScoreCardActivity">
         </activity>
+         <activity 
+            android:name=".TournamentActivity">
+        </activity>
+        
     
     </application>
 

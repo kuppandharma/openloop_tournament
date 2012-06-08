@@ -36,9 +36,9 @@ public class SubjectsActivity extends Activity {
 			layout.addView(myButton);
 			myButton.setOnClickListener(new SubjectListener(subject){
 				public void onClick(View v) {
-					Intent  mathsQuestion = new Intent(getApplicationContext(),QuestionActivity.class);
-					mathsQuestion.putExtra("subject_id", mSubject.getSubjectId());
-					startActivity(mathsQuestion);
+					Intent  tournament = new Intent(getApplicationContext(),TournamentActivity.class);
+					tournament.putExtra("subject_id", mSubject.getSubjectId());
+					startActivity(tournament);
 				}
 				
 			});

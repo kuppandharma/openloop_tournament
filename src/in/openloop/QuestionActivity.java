@@ -4,7 +4,7 @@ import in.openloop.db.model.Answer;
 import in.openloop.db.model.Question;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -12,22 +12,24 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 public class QuestionActivity  extends Activity{
 	
+	private static final String TAG="QuestionActivity";
 	
 	private TournamentDbAdapter mDbAdapter;
 	EditText editText;
 	ListIterator<Question> mQuestionIterator;
 	private boolean mNext = true;
-	private List<Answer> answers = new ArrayList<Answer>();
+	private HashMap<Question, Answer> answerMap = new HashMap<Question,Answer>();
+	
 	private Question currentQuestion;
 	
 	private void displayQuestion(Question question){
@@ -59,8 +61,16 @@ public class QuestionActivity  extends Activity{
 		mDbAdapter.open();
 		
 		Intent i = getIntent();
-		int subjectId = i.getIntExtra("subject_id",0);
-		List<Question> questions = mDbAdapter.getAllQuestions(subjectId);
+		int tournamentId = i.getIntExtra("tournament_id",0);
+		List<Question> questions = mDbAdapter.getAllTournamentQuestions(tournamentId);
+		
+		Log.w(TAG, "Question Size" + questions.size());
+        
+		questions = mDbAdapter.fillQuestions(questions);
+		
+		Log.w(TAG, "Question Size Filled" + questions.size());
+        
+		
 		mQuestionIterator = questions.listIterator();
 		if(mQuestionIterator.hasNext()){
 			displayQuestion(mQuestionIterator.next());
@@ -74,10 +84,16 @@ public class QuestionActivity  extends Activity{
 			
 			public void onClick(View v) {
 				finish();
-				
-				 Intent i = new Intent(getApplicationContext(), ScoreCardActivity.class);
-				 i.putExtra("score", Answer.evaluateScore(answers));
 				 
+				 Intent prevIntent = getIntent();
+				 
+				 Intent i = new Intent(getApplicationContext(), ScoreCardActivity.class);
+				 Bundle extras = new Bundle();
+				 extras.putInt("total",  answerMap.size());
+				 extras.putInt("score", Answer.evaluateScore(answerMap.values()));
+				 extras.putInt("tournament_id", prevIntent.getIntExtra("tournament_id", 1));
+				 i.putExtras(extras);
+				
 			     startActivity(i);
 			}
 		});
@@ -90,7 +106,7 @@ public class QuestionActivity  extends Activity{
 			
 			public void onClick(View v) {
 				
-				answers.add(getAnswer(currentQuestion));
+				answerMap.put(currentQuestion, getAnswer(currentQuestion));
 				
 //				Toast.makeText(QuestionActivity.this,
 //						id, Toast.LENGTH_SHORT).show();
@@ -102,6 +118,15 @@ public class QuestionActivity  extends Activity{
 					displayQuestion(mQuestionIterator.next());
 					
 					mNext = true;
+				}else{
+					finish();
+					
+					Intent prevIntent = getIntent();
+					Intent i = new Intent(getApplicationContext(), ScoreCardActivity.class);
+					i.putExtra("score", Answer.evaluateScore(answerMap.values()));
+					i.putExtra("total", answerMap.size());
+					i.putExtra("tournament_id", prevIntent.getIntExtra("tournament_id", -1));
+					startActivity(i);
 				}
 			}
 		});
@@ -118,6 +143,9 @@ public class QuestionActivity  extends Activity{
 					displayQuestion(mQuestionIterator.previous());
 					
 					mNext = false;
+				}else{
+					Toast.makeText(QuestionActivity.this,
+					"No Previous Question", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
