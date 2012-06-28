@@ -16,6 +16,7 @@ public final class R {
     public static final class id {
         public static final int answerChoices=0x7f050005;
         public static final int btnClearQuestions=0x7f05000d;
+        public static final int btnFinish=0x7f050011;
         public static final int btnImportQuestions=0x7f05000e;
         public static final int btnLogin=0x7f050002;
         public static final int btnUpdateQuestionBank=0x7f050003;
@@ -25,15 +26,15 @@ public final class R {
         public static final int choiceD=0x7f050009;
         public static final int email=0x7f050001;
         public static final int finishButton=0x7f05000c;
-        public static final int importTournaments=0x7f050013;
+        public static final int importTournaments=0x7f050014;
         public static final int name=0x7f050000;
         public static final int nextButton=0x7f05000a;
         public static final int prevButton=0x7f05000b;
         public static final int questionTxt=0x7f050004;
         public static final int scoreCardText=0x7f05000f;
         public static final int subjects=0x7f050010;
-        public static final int textSalute=0x7f050012;
-        public static final int tournaments=0x7f050011;
+        public static final int textSalute=0x7f050013;
+        public static final int tournaments=0x7f050012;
     }
     public static final class layout {
         public static final int login=0x7f030000;

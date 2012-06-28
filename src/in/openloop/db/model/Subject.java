@@ -40,4 +40,8 @@ public class Subject {
 	public int hashCode(){
 		return mSubjectName.hashCode();
 	}
+	
+	public String toString(){
+		return mSubjectName + mId;
+	}
 }

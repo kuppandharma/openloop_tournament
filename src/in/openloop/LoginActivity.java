@@ -30,7 +30,6 @@ public class LoginActivity extends Activity {
 		mDbAdapter = new TournamentDbAdapter(this);
 		mDbAdapter.open();
 		
-		Log.w("Dharma","Just a warning message");
 		
 		//loginUser(name.getText().toString(), email.getText().toString());
 		
@@ -39,7 +38,6 @@ public class LoginActivity extends Activity {
 			
 			public void onClick(View v) {
 				Intent nextScreen = new Intent(getApplicationContext(),SubjectsActivity.class);
-				Log.w("Dharma","Just another warning message");
 						
 				loginUser("'"+mName.getText().toString()+"'","'" + mEmail.getText().toString() +"'");
 				startActivity(nextScreen);
@@ -59,14 +57,10 @@ public class LoginActivity extends Activity {
 	private void loginUser(String name, String email){
 		
 		
-		Log.w("Dharma", "####" + name + email);
-		
 		User user = mDbAdapter.getUser(name, email);
 		if(user == null){
 			user = mDbAdapter.createUser(name, email);
 		}
-		
-		Log.w("Dharma", "###"+user.getUserName() + user.getEmail());
 		
 		UserObjects.getUserObjects().setUser(user);
 	}

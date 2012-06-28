@@ -80,4 +80,13 @@ public class Question {
 	
 	public Question(){
 	}
+	
+	public String toString(){
+		return mQuestionText + "\t" +
+				mChoices[0] + "\t" +
+				mChoices[1] + "\t" +
+				mChoices[2] +"\t" +
+				mChoices[3] + "\t" +
+				mAnswerCode;
+	}
 }

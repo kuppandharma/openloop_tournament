@@ -27,6 +27,15 @@ public class SubjectsActivity extends Activity {
 		mDbAdapter = new TournamentDbAdapter(this);
 		mDbAdapter.open();
 		
+		Button finish = (Button)findViewById(R.id.btnFinish);
+		finish.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				finish();	
+			}
+		});
+		
+		
 		LinearLayout layout = (LinearLayout)findViewById(R.id.subjects);
 		
 		List<Subject> subjects = mDbAdapter.getAllSubjects();
