@@ -1,0 +1,38 @@
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	new file:   .classpath
+#	new file:   .project
+#	new file:   .settings/org.eclipse.jdt.core.prefs
+#	modified:   AndroidManifest.xml
+#	modified:   bin/OpenloopTournaments.apk
+#	modified:   bin/classes.dex
+#	modified:   bin/classes/in/openloop/QuestionActivity$1.class
+#	modified:   bin/classes/in/openloop/QuestionActivity$2.class
+#	modified:   bin/classes/in/openloop/QuestionActivity$3.class
+#	modified:   bin/classes/in/openloop/QuestionActivity.class
+#	modified:   bin/classes/in/openloop/QuestionBankActivity.class
+#	modified:   bin/classes/in/openloop/R$id.class
+#	modified:   bin/classes/in/openloop/R$layout.class
+#	modified:   bin/classes/in/openloop/R$string.class
+#	new file:   bin/classes/in/openloop/ScoreCardActivity$1.class
+#	new file:   bin/classes/in/openloop/ScoreCardActivity.class
+#	modified:   bin/classes/in/openloop/SubjectsActivity$1.class
+#	new file:   bin/classes/in/openloop/SubjectsActivity$SubjectListener.class
+#	modified:   bin/classes/in/openloop/SubjectsActivity.class
+#	modified:   bin/classes/in/openloop/db/TournamentDbAdapter.class
+#	new file:   bin/classes/in/openloop/db/model/Answer.class
+#	modified:   bin/resources.ap_
+#	modified:   gen/in/openloop/R.java
+#	new file:   res/layout/score_card.xml
+#	modified:   src/in/openloop/QuestionActivity.java
+#	modified:   src/in/openloop/QuestionBankActivity.java
+#	new file:   src/in/openloop/ScoreCardActivity.java
+#	modified:   src/in/openloop/SubjectsActivity.java
+#	modified:   src/in/openloop/db/TournamentDbAdapter.java
+#	new file:   src/in/openloop/db/model/Answer.java
+#
